@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #Out-border { position:relative;width:880px;height:500px;margin:10px auto;}
+        p { text-align:center;}
+        img { position:absolute; left:350px; top:250px;max-width:200px;}
+    </style>
+    <script src="mTween.js"></script>
+    <script>
+  /* 一组图片 同一种定位模式下 在中间 然后点击顺序呢模式的时候 就 按照顺序的数组 src 给他们 一一分配
+  * 点击随机模式时  就 给他们  随机的  位置  但是 位置 是 固定的 几个  这就是我的 笨方法
+  * */
+  window.onload = function() {
+      var Aimg = document.querySelectorAll('img');
+      var Aposi = [{"left":20, "top":10},{"left":230, "top":10},{"left":440, "top":10},{"left":650, "top":10},{"left":20, "top":300},{"left":230, "top":300},{"left":440, "top":300},{"left":650, "top":300}];
+      var Abutton = document.querySelectorAll('button');
+
+
+      /* 个各个图片添加对应的运动 已经完成 现在需要做的 就是i
+      *  点击顺序 标签的时候 就是
+      * */
+      Abutton[1].onclick = function(){
+          for (var i = 0; i < Aimg.length; i++) {
+              mTween(Aimg[i], {left: Aposi[i]["left"], top: Aposi[i]["top"]}, 1500, 'elasticOut');
+
+          }
+      };
+
+      Abutton[0].onclick = function() {
+          var arr = Aposi.concat();
+          arr.sort(function (a, b) {
+              return 0.5 - Math.random();
+          });
+          for(var i=0;i<Aimg.length;i++) {
+              mTween(Aimg[i], {left: arr[i]["left"], top: arr[i]["top"]}, 1500, 'elasticOut');
+          }
+          console.log(Aposi);
+      };
+
+  }
+    </script>
+</head>
+<body>
+<p><button>Random</button>
+    <button>Inorder</button>
+</p>
+
+<div id="Out-border">
+
+    <img src="img/377adab44aed2e7394aa5a128f01a18b87d6fa49.jpg">
+    <img src="img/4514381803.jpg">
+    <img src="img/200810309416546_2.jpg">
+    <img src="img/Grey_squirrel_400px.jpg">
+    <img src="img/grey_squirrel_by_lou_in_canada-d4gfxmh.jpg">
+    <img src="img/u=1132236259,393966301&fm=21&gp=0.jpg">
+    <img src="img/u=3939984853,1353410264&fm=21&gp=0.jpg">
+    <img src="img/u=3950945812,3385900676&fm=21&gp=0.jpg">
+
+
+</div>
+</body>
+</html>
